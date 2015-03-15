@@ -66,7 +66,7 @@ for (i in 1:nrow(act)) {
 Let's make the new histogram:
 ```{r,echo=TRUE}
 steps_per_day_new<-aggregate(act_mv$steps, by=list(Day=act_mv$date), FUN=sum)
-hist(steps_per_day_new$x,breaks=50,main="Histogram of daily steps",xlab="Steps per day")
+hist(steps_per_day_new$x,breaks=50,main="Histogram of daily steps(w/filled in values)",xlab="Steps per day")
 steps_mean_new=mean(steps_per_day_new$x)
 steps_median_new=median(steps_per_day_new$x)
 ```
