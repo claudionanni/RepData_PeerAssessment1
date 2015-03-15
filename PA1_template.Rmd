@@ -55,9 +55,8 @@ I loop thru the original vector and whenever I find that steps=NA I replace the 
 ```{r,echo=TRUE}
 act_mv<-act
 for (i in 1:nrow(act)) {
-    # check if the "steps" value is missing
+    # for missing step value I will replace it with the mean in that interval taken from the mean we calculated previously
     if(is.na(act$steps[i])) {
-        # if so, replace the missing value with the mean for that interval
         act_mv$steps[i] <- mean_per_interval$x[which(mean_per_interval$time_of_day==act_mv$interval[i])]
     }
 }
@@ -98,6 +97,7 @@ act_mv$type_of_day <- as.factor(sapply(act_mv$date, type_of_day))
 Now we can plot the data splitting by type of day:
 
 ```{r,echo=TRUE}
+# we use basic plotting system
 par(mfrow = c(2, 1))
 for (type in c("Weekend", "Weekday")) {
     steps.type <- aggregate(steps ~ interval, data = act_mv, subset = act_mv$type_of_day ==  type, FUN = mean)
@@ -105,6 +105,6 @@ for (type in c("Weekend", "Weekday")) {
 }
 ```
 
-
-
+##Observation:
+Most clear difference is that on weekends there is more activity during the day, where in weekdays people is working and so there is less activity(Most office workers?!)
 

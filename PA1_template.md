@@ -82,9 +82,8 @@ I loop thru the original vector and whenever I find that steps=NA I replace the 
 ```r
 act_mv<-act
 for (i in 1:nrow(act)) {
-    # check if the "steps" value is missing
+    # for missing step value I will replace it with the mean in that interval taken from the mean we calculated previously
     if(is.na(act$steps[i])) {
-        # if so, replace the missing value with the mean for that interval
         act_mv$steps[i] <- mean_per_interval$x[which(mean_per_interval$time_of_day==act_mv$interval[i])]
     }
 }
@@ -94,7 +93,7 @@ Let's make the new histogram:
 
 ```r
 steps_per_day_new<-aggregate(act_mv$steps, by=list(Day=act_mv$date), FUN=sum)
-hist(steps_per_day_new$x,breaks=50,main="Histogram of daily steps",xlab="Steps per day")
+hist(steps_per_day_new$x,breaks=50,main="Histogram of daily steps(w/filled in values)",xlab="Steps per day")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
@@ -152,6 +151,6 @@ for (type in c("Weekend", "Weekday")) {
 
 ![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
 
-
-
+##Observation:
+Most clear difference is that on weekends there is more activity during the day, where in weekdays people is working and so there is less activity(Most office workers?!)
 
